@@ -24,7 +24,8 @@ import { ModalModule } from "ngx-bootstrap/modal"
   exports: [
     RouterModule,
     ReactiveFormsModule,
-    ValidationMessageComponent
+    ValidationMessageComponent,
+    NotificationComponent
   ]
 })
 export class SharedModule { }

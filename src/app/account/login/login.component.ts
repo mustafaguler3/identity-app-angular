@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from '../../models/login';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/shared.service';
@@ -11,7 +11,8 @@ import { AccountService } from '../account.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  form: any;
+  
+  form: any | FormGroup = new FormGroup({});
   submitted = false;
   errorMessages: string[] = [];
 
@@ -20,15 +21,19 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private sharedService: SharedService,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {}
-
-  initializeForm() {
+  ) {
     this.form = this.fb.group({
-      userName:["",[Validators.required]],
-      password:["",[Validators.required]]
+      username: ["",[Validators.required]],
+      password: ["",[Validators.required]]
     });
+  }
+
+  ngOnInit(): void 
+  {
+  }
+
+  get fc(){
+    return this.form.controls
   }
 
   login(){

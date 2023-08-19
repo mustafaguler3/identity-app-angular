@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { PlayComponent } from './play/play.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { AccountModule } from './account/account.module';
+import { RegisterComponent } from './account/register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    AccountModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

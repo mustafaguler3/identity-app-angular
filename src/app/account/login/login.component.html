@@ -8,21 +8,38 @@
 
                 <div class="form-floating mb-3">
                     <label for="">Email</label>
-                    <input type="email" placeholder="Username (your email)" class="form-control" formControlName="userName"
-                    [class.is-invalid]="submitted && form.get('userName')?.errors">
+                    <input type="email" 
+                    placeholder="Username (your email)" 
+                    class="form-control"
+                    formControlName="username"
+                    [ngClass]="{'is-invalid' : fc.username.touched && fc.username.invalid}"
+                    required>
 
-                    <span class="text-danger" *ngIf="submitted && form.get('userName')?.hasError('required')">
-                        Username (email) is required
+                    <span class="text-danger" *ngIf="fc.username.touched && fc.username.invalid">
+                        <span *ngIf="fc.username.errors?.required" >
+                             Username is required
+                        </span>
                     </span>
                 </div>
 
                 <div class="form-floating mb-3">
                     <label for="">Password</label>
-                    <input type="password" placeholder="Password" class="form-control" formControlName="password">
+                    <input type="password" 
+                    placeholder="Password" 
+                    class="form-control" 
+                    formControlName="password"
+                    required
+                    [ngClass]="{'is-invalid':fc.password.touched && fc.password.invalid}">
+
+                    <span class="text-danger" *ngIf="fc.password.touched && fc.password.invalid">
+                        <span *ngIf="fc.password.errors?.required">
+                            Password is required
+                        </span>
+                    </span>
                 </div>
 
                 <div class="d-grid mt-4 px-1">
-                    <button class="btn btn-lg btn-info">Login</button>
+                    <button class="btn btn-md btn-info" [disabled]="form.invalid">Login</button>
                 </div>
             </form>
 

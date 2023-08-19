@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit{
 
-  form: any;
+  form: any | FormGroup = new FormGroup({});
   submitted = false;
   errorMessages: string[] = [];
 
@@ -19,19 +19,19 @@ export class RegisterComponent implements OnInit{
               private fb: FormBuilder,
               private sharedService:SharedService,
               private router:Router){
-              }
+                this.form = this.fb.group({
+                  firstName: ["",[Validators.required,Validators.minLength(3),Validators.maxLength(15)]],
+                  lastName: ["",[Validators.required,Validators.minLength(3),Validators.maxLength(15)]],
+                  email:["",[Validators.required,Validators.pattern("")]],
+                  password:["",[Validators.required,Validators.minLength(3),Validators.maxLength(15)]]
+                })
+  }
 
   ngOnInit(): void {
-      this.initializeForm()
   }
 
   initializeForm(){
-    this.form = this.fb.group({
-      firstName: ["",[Validators.required,Validators.minLength(3),Validators.maxLength(15)]],
-      lastName: ["",[Validators.required,Validators.minLength(3),Validators.maxLength(15)]],
-      email:["",[Validators.required,Validators.pattern("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$")]],
-      password:["",[Validators.required,Validators.minLength(3),Validators.maxLength(15)]]
-    })
+   
   }
 
   get fc(){
@@ -42,11 +42,11 @@ export class RegisterComponent implements OnInit{
     this.submitted = true;
     this.errorMessages = [];
 
-    if(this.form.valid){
+    //if(this.form.valid){
       this.accountService.register(this.form.value).subscribe({
         next: (response:any) => {
           this.sharedService.showModification(true,response.value.title,response.value.message)
-          this.router.navigateByUrl("/account/login")
+          this.router.navigateByUrl("account/login")
         },
         error: error => {
           console.log(error);
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit{
         }
       }
       )
-    }
+    //}
   }
 
 
