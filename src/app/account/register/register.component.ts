@@ -3,6 +3,8 @@ import { AccountService } from '../account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Router } from '@angular/router';
+import { map, take } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +27,15 @@ export class RegisterComponent implements OnInit{
                   email:["",[Validators.required,Validators.pattern("")]],
                   password:["",[Validators.required,Validators.minLength(3),Validators.maxLength(15)]]
                 })
+
+                this.accountService.user$.pipe(take(1)).subscribe({
+                  next: (user:User | null) => {
+                    if(user){
+                      this.router.navigateByUrl("/");
+                    }
+                  }
+                })
+                
   }
 
   ngOnInit(): void {
