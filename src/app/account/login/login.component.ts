@@ -4,6 +4,8 @@ import { Login } from '../../models/login';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/shared.service';
 import { AccountService } from '../account.service';
+import { take } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +28,15 @@ export class LoginComponent implements OnInit {
       username: ["",[Validators.required]],
       password: ["",[Validators.required]]
     });
+
+
+    this.accountService.user$.pipe(take(1)).subscribe({
+      next: (user:User | null) => {
+        if(user){
+          this.router.navigateByUrl("/")
+        }
+      }
+    })
   }
 
   ngOnInit(): void 
@@ -40,11 +51,11 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.errorMessages = [];
 
-    //if(this.form.valid){
+    if(this.form.valid){
       this.accountService.login(this.form.value).subscribe({
         next: (response:any) => {
-          this.sharedService.showModification(true,response.value.title,response.value.message)
-          this.router.navigateByUrl("/account/login")
+          //this.sharedService.showModification(true,response.value.title,response.value.message)
+          this.router.navigateByUrl("/")
         },
         error: (error:any)=> {
           console.log(error);
@@ -57,6 +68,6 @@ export class LoginComponent implements OnInit {
         }
       }
       )
-    //}
+    }
   }
 }

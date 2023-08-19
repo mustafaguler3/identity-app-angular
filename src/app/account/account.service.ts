@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { Register } from '../models/register';
 import { Login } from '../models/login';
 import { User } from '../models/user';
-import { ReplaySubject, map } from 'rxjs';
+import { ReplaySubject, map, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AccountService {
 
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router:Router) { }
 
   login(model: Login){
     return this.http.post<User>(this.baseUrl+"account/login",model).pipe(
@@ -26,6 +28,41 @@ export class AccountService {
         }
       })
     );
+  }
+
+  logout(){
+    localStorage.removeItem(environment.userKey);
+    this.userSource.next(null);
+    this.router.navigateByUrl("account/login")
+  }
+
+  refreshUser(jwt:string | null){
+    if(jwt === null){
+      this.userSource.next(null);
+      return of(undefined)
+    }
+
+    let headers = new HttpHeaders();
+    headers = headers.set("Authorization","Bearer "+jwt);
+
+    return this.http.get<User>(this.baseUrl+"account/refresh-user-token",{headers:headers}).pipe(
+      map((user:User)=>{
+        if(user){
+          this.setUser(user)
+        }
+      })
+    )
+  }
+
+  getJWT(){
+    const key = localStorage.getItem(environment.userKey);
+    if(key){
+      const user: User = JSON.parse(key);
+
+      return user.jwt;
+    }else {
+      return null;
+    }
   }
 
   register(model: Register) {
