@@ -1,1 +1,66 @@
-<p>register works!</p>
+<div class="d-flex justify-content-center">
+    <div class="col-12 col-lg-5">
+        <main class="form-signin">
+            <form [formGroup]="form" (ngSubmit)="register()" autocomplete="off">
+                <div class="text-center mb-4">
+                    <h3 class="mb-3 font-weight-normal">
+                        <span class="text-danger">Register</span>
+                    </h3>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <label for="">Firstname</label>
+                    <input formControlName="firstName" type="text" placeholder="Firstname" class="form-control"
+                    name="firstName"
+                    required
+                    [ngClass]="{'is-invalid':fc.firstName.touched && fc.firstName.invalid}">
+
+
+                    <div *ngIf="fc.firstName.errors?.required">
+                        <div class="alert alert-danger" *ngIf="fc.firstName.touched && fc.firstName.invalid">
+                            Firstname is required
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="form-floating mb-3">
+                    <label for="">Lastname</label>
+                    <input formControlName="lastName" type="text" placeholder="Lastname" class="form-control"
+                    required
+                    [class.is-invalid]="submitted && form.get('lastName')?.errors">
+
+                    <span class="alert alert-danger" *ngIf="submitted && form.get('lastName')?.hasError('required')">
+                        Lastname is required
+                    </span>
+                    <span class="alert alert-danger" *ngIf="submitted && form.get('lastName')?.hasError('minLength') || form.get('lastName')?.hasError('maxLength')">
+                        Lastname must be at least 3, and max 15 characters
+                    </span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <label for="">Email</label>
+                    <input formControlName="email" type="email" placeholder="Email" class="form-control"
+                    required>
+                    <span class="alert alert-danger" *ngIf="submitted && form.get('email')?.hasError('required')">
+                        Email is required
+                    </span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <label for="">Password</label>
+                    <input formControlName="password" type="password" placeholder="Password" class="form-control"
+                    required>
+
+                    <span class="alert alert-danger" *ngIf="submitted && form.get('password')?.hasError('required')">
+                        Password is required
+                    </span>
+                </div>
+
+                <div class="d-grid mt-4 px-1">
+                    <button class="btn btn-lg btn-info" [disabled]="form.invalid">Register</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
