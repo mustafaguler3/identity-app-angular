@@ -4,23 +4,27 @@ import { NotFoundComponent } from './components/errors/not-found/not-found.compo
 import { ValidationMessageComponent } from './components/errors/validation-message/validation-message.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http"
-
+import { HttpClientModule } from "@angular/common/http";
+import { NotificationComponent } from './components/modals/notification/notification.component'
+import { ModalModule } from "ngx-bootstrap/modal"
 
 @NgModule({
   declarations: [
     NotFoundComponent,
-    ValidationMessageComponent
+    ValidationMessageComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot()
   ],
   exports: [
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ValidationMessageComponent
   ]
 })
 export class SharedModule { }
