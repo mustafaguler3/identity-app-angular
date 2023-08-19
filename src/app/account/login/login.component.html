@@ -1,19 +1,24 @@
 <div class="d-flex justify-content-center">
     <div class="col-12 col-lg-5">
         <main class="form-signin">
-            <form>
+            <form [formGroup]="form" (ngSubmit)="login()" autocomplete="off">
                 <div class="text-center mb-4">
                     <h3 class="mb-3 font-weight-normal">Login</h3>
                 </div>
 
                 <div class="form-floating mb-3">
                     <label for="">Email</label>
-                    <input type="email" placeholder="Email" class="form-control">
+                    <input type="email" placeholder="Username (your email)" class="form-control" formControlName="userName"
+                    [class.is-invalid]="submitted && form.get('userName')?.errors">
+
+                    <span class="text-danger" *ngIf="submitted && form.get('userName')?.hasError('required')">
+                        Username (email) is required
+                    </span>
                 </div>
 
                 <div class="form-floating mb-3">
                     <label for="">Password</label>
-                    <input type="password" placeholder="Password" class="form-control">
+                    <input type="password" placeholder="Password" class="form-control" formControlName="password">
                 </div>
 
                 <div class="d-grid mt-4 px-1">
