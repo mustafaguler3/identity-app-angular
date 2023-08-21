@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Register } from '../models/register';
-import { Login } from '../models/login';
-import { User } from '../models/user';
+import { Login } from '../models/account/login';
 import { ReplaySubject, map, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { ConfirmEmail } from '../models/account/confirmEmail';
+import { Register } from '../models/account/register';
+import { User } from '../models/account/user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,11 @@ export class AccountService {
 
   constructor(private http: HttpClient,
               private router:Router) { }
+
+
+  confirmEmail(model: ConfirmEmail){
+    return this.http.put(environment.apiUrl+"account/confirm-email",model);
+  }
 
   login(model: Login){
     return this.http.post<User>(this.baseUrl+"account/login",model).pipe(
