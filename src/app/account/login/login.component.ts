@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/shared.service';
 import { AccountService } from '../account.service';
 import { take } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/account/user';
 
 @Component({
   selector: 'app-login',
@@ -53,6 +53,10 @@ export class LoginComponent implements OnInit {
   {
   }
 
+  resendEmailConfirmationLink(){
+    this.router.navigateByUrl("account/send-email/resend-email-confirmation-link");
+  }
+  
   get fc(){
     return this.form.controls
   }

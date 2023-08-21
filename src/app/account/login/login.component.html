@@ -38,6 +38,13 @@
                     </span>
                 </div>
 
+                <div class="form-floating" *ngIf="errorMessages.length > 0">
+                    <app-validation-message [errorMessages]="errorMessages"></app-validation-message>
+                    <a class="btn btn-link" (click)="resendEmailConfirmationLink()" *ngIf="errorMessages[0].includes('Please confirm your email')">
+                        Click here to resend email confirmation link
+                    </a>
+                </div>
+
                 <div class="d-grid mt-4 px-1">
                     <button class="btn btn-md btn-info" [disabled]="form.invalid">Login</button>
                 </div>
