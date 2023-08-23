@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterState
 import { AccountService } from '../account/account.service';
 import { SharedService } from './shared.service';
 import { Observable, map } from 'rxjs';
-import { User } from '../models/user';
+import { User } from '../models/account/user';
 
 export class AuthorizationGuard implements CanActivate{
 
