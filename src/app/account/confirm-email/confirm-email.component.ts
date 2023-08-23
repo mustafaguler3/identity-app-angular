@@ -20,10 +20,6 @@ export class ConfirmEmailComponent implements OnInit{
               private activatedRoute:ActivatedRoute,
               private sharedService:SharedService){}
 
-  resendEmailConfirmationLink(){
-    
-  }
-
   ngOnInit(): void {
       this.accountService.user$.pipe(take(1)).subscribe({
         next: (user:User | null) => {

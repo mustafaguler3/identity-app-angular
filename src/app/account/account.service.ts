@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ConfirmEmail } from '../models/account/confirmEmail';
 import { Register } from '../models/account/register';
 import { User } from '../models/account/user';
+import { ResetPassword } from '../models/account/resetPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,20 @@ export class AccountService {
               private router:Router) { }
 
 
+  resetPassword(model:ResetPassword){
+    return this.http.put(environment.apiUrl+"account/reset-password",model);
+  }
+
   confirmEmail(model: ConfirmEmail){
     return this.http.put(environment.apiUrl+"account/confirm-email",model);
   }
 
   resendEmailConfirmationLink(email:string){
     return this.http.post(`${environment.apiUrl}/account/resend-email-confirmation-link/${email}`,{})
+  }
+
+  forgotUsernameOrPassword(email:string){
+    return this.http.put(`${environment.apiUrl}/account/forgot-username-or-password/${email}`,{})
   }
 
   login(model: Login){

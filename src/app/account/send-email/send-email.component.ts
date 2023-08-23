@@ -61,7 +61,24 @@ export class SendEmailComponent implements OnInit{
             this.sharedService.showModification(true,response.value.title,response.value.message);
             this.router.navigateByUrl("/account/login")
           },error : error => {
-
+            if(error.error.errors){
+              this.errorMessages = error.error.errors;
+            }else {
+              this.errorMessages.push(error.error)
+            }
+          }
+        })
+      }else if (this.mode.includes('forgot-username-or-password')){
+        this.accountService.forgotUsernameOrPassword(this.emailForm.get('email')?.value).subscribe({
+          next: (response:any) => {
+            this.sharedService.showModification(true,response.value.title,response.value.message);
+            this.router.navigateByUrl("/account/login");
+          },error : error => {
+            if(error.error.errors){
+              this.errorMessages = error.error.errors;
+            }else {
+              this.errorMessages.push(error.error)
+            }
           }
         })
       }
