@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account/account.service';
+import { SharedService } from './shared/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,11 @@ import { AccountService } from './account/account.service';
 export class AppComponent implements OnInit{
   title = 'identity-app';
 
-  constructor(private accountService:AccountService){}
+  constructor(private accountService:AccountService,
+              private sharedService:SharedService){}
 
   ngOnInit(): void {
-      
+      this.refreshToken()
   }
 
   private refreshToken(){
@@ -20,8 +22,9 @@ export class AppComponent implements OnInit{
     if(jwt){
       this.accountService.refreshUser(jwt).subscribe({
         next: _ => {},
-        error: _ => {
-          this.accountService.logout()
+        error: err => {
+          this.accountService.logout();
+          this.sharedService.showModification(false,"Account blocked",err.error)
         }
       })
     }else {

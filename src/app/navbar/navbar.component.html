@@ -4,11 +4,11 @@
             <a class="nav-brand">
                 <img src="/src/assets/1.png" class="me-3" alt="">
             </a>
-            <button class="navbar-toggle">
+            <button class="navbar-toggle" (click)="toggleCollapsed()">
                 <span class="navbar-toggle-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" [ngClass]="{'collapse':collapse}">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a href="" class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>

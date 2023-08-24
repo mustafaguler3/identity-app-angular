@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-center" *ngIf="formInitialized">
+    <div class="col-12 col-lg-5">
+        <main class="form-signing">
+            <form [formGroup]="memberForm" (ngSubmit)="submit()" autocomplete="off">
+                <div class="text-center mb-4">
+                    <h3 class="mb-3 font-weight-normal">
+                        <span class="text-warning" *ngIf="addNew">Add</span>
+                        <span class="text-warning" *ngIf="!addNew">Update</span>
+                        Member
+                    </h3>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input formControlName="firstName" type="text" placeholder="First Name" class="form-control"
+                    [ngClass]="{'is-invalid':  fc.firstName.touched && fc.firstName.invalid }">
+                    <label for="firstName">First Name</label>
+                    <span class="text-danger" *ngIf="submitted && fc.firstName.errors?.required">
+                        First Name is required
+                    </span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input formControlName="lastName" type="text" placeholder="Last Name" class="form-control"
+                    [ngClass]="{'is-invalid':  fc.lastName.touched && fc.lastName.invalid }">
+                    <label for="lastName">Last Name</label>
+                    <span class="text-danger" *ngIf="submitted && fc.lastName.errors?.required">
+                        Last Name is required
+                    </span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input formControlName="userName" type="text" placeholder="Username" class="form-control"
+                    [ngClass]="{'is-invalid':  fc.userName.touched && fc.userName.invalid }">
+                    <label for="userName">Username</label>
+                    <span class="text-danger" *ngIf="submitted && fc.userName.errors?.required">
+                        Username is required
+                    </span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input formControlName="password" type="text" placeholder="Password" class="form-control"
+                    [ngClass]="{'is-invalid':  fc.password.touched && fc.password.invalid }"
+                    (change)="passwordOnChange()">
+                    <label for="password">Password</label>
+                    <span class="text-danger" *ngIf="submitted && fc.password.errors?.required">
+                        Password is required
+                    </span>
+
+                    <span class="text-danger" *ngIf="submitted && fc.password.errors?.minLength || fc.password.errors?.maxLength">
+                        Password must be at least 6 and maximum 15 characters
+                    </span>
+
+                    <div *ngIf="!addNew">
+                        <span class="text-info fw-bold">Note:</span>
+                        If you dont intend to change the member password, then leave the password field empty
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2">
+                        <label for="">Roles:</label>
+                    </div>
+                    <div class="col-10">
+                        <div class="btn-group">
+                            <ng-container *ngFor="let role of applicationRoles">
+                                <input type="checkbox" class="btn-check" id="{{role}}" (change)="roleOnChange(role)"
+                                [checked]="existingMemberRoles.includes(role)"
+                                [ngClass]="{'is-invalid': fc.roles.touched && fc.roles.invalid}">
+                                <label class="btn btn-outline-primary" for="{{role}}">{{ role }}</label>
+                            </ng-container>
+
+                            <div *ngIf="submitted && fc.roles.touched && fc.roles.invalid">
+                                <div class="text-danger" *ngIf="fc.roles.errors?.required">
+                                    Select at least one role
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-floating" *ngIf="errorMessages.length > 0">
+                    <app-validation-message [errorMessages]="errorMessages"></app-validation-message>
+                </div>
+
+
+                <div class="row my-4">
+                    <div class="col-6">
+                        <div class="d-grid">
+                            <button class="btn btn-block btn-info" type="submit">
+                                {{ addNew ? 'Create' : 'Update' }} Member
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="d-grid">
+                            <button class="btn btn-block btn-danger" routerLink="/admin">
+                                Back to list
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>

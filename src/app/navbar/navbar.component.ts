@@ -6,12 +6,14 @@ import { AccountService } from '../account/account.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent{
+
+  collapse = true;
 
   constructor(public accountService:AccountService){}
 
-  ngOnInit(): void {
-      
+  toggleCollapsed(){
+    this.collapse = !this.collapse
   }
 
   logout(){
