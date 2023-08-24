@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemberView } from '../models/admin/memberView';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment.prod';
 import { MemberAddEdit } from '../models/admin/memberAddEdit';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment.prod';
 import { Login } from '../models/account/login';
 import { ReplaySubject, map, of } from 'rxjs';
 import { Router } from '@angular/router';

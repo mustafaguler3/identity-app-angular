@@ -24,7 +24,11 @@ export class AppComponent implements OnInit{
         next: _ => {},
         error: err => {
           this.accountService.logout();
-          this.sharedService.showModification(false,"Account blocked",err.error)
+
+          if(err.status === 401){
+            this.sharedService.showModification(false,"Account blocked",err.error)
+          }
+          
         }
       })
     }else {
