@@ -13,9 +13,11 @@
                     <li class="nav-item">
                         <a href="" class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
                     </li>
-                    <li><a href="" class="nav-link" routerLink="/play" routerLinkActive="active">Play</a></li>
+                    <li><a class="nav-link" routerLink="/play" routerLinkActive="active">Play</a></li>
 
-                    <li><a href="" class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a></li>
+                    <li>
+                        <a *appUserHasRole="['Admin']" class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
+                    </li>
                 </ul>
 
                 <ul class="navbar-nav" *ngIf="(accountService.user$ | async) === null">

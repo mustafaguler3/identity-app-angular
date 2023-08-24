@@ -6,6 +6,7 @@ import { SharedService } from 'src/app/shared/shared.service';
 import { AccountService } from '../account.service';
 import { take } from 'rxjs';
 import { User } from 'src/app/models/account/user';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login',

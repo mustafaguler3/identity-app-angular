@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
 import { NotificationComponent } from './components/modals/notification/notification.component'
-import { ModalModule } from "ngx-bootstrap/modal"
+import { ModalModule } from "ngx-bootstrap/modal";
+import { UserHasRoleDirective } from './directives/user-has-role.directive'
 
 @NgModule({
   declarations: [
     NotFoundComponent,
     ValidationMessageComponent,
-    NotificationComponent
+    NotificationComponent,
+    UserHasRoleDirective
   ],
   imports: [
     CommonModule,
